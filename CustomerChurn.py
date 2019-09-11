@@ -28,44 +28,48 @@ app.config.update(dict(
 db = SQLAlchemy(app)
 
 
-def predictDefault(ID,Gender,Status,Children,EstIncome,CarOwner,Age,LongDistance,International,Local,Dropped,Paymethod,LocalBilltype,LongDistanceBilltype,Usage,RatePlan):
+def predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan):
 	
-	service_path = 'https://ibm-watson-ml.mybluemix.net'
-	username = '********'
-	password = '*******'
 	
-	headers = urllib3.util.make_headers(basic_auth='{}:{}'.format(username, password))
-	url = '{}/v2/identity/token'.format(service_path)
-	response = requests.get(url, headers=headers)
-	mltoken = json.loads(response.text).get('token')
+	apikey = 'TcEqt9DTURtLg5_ZR3-lLUA2gyehNu8TNtLaJNdrWPij'
+	
+	# Get an IAM token from IBM Cloud
+	url     = "https://iam.bluemix.net/oidc/token"
+	headers = { "Content-Type" : "application/x-www-form-urlencoded" }
+	data    = "apikey=" + apikey + "&grant_type=urn:ibm:params:oauth:grant-type:apikey"
+	IBM_cloud_IAM_uid = "bx"
+	IBM_cloud_IAM_pwd = "bx"
+	response  = requests.post( url, headers=headers, data=data, auth=( IBM_cloud_IAM_uid, IBM_cloud_IAM_pwd ) )
+	iam_token = response.json()["access_token"]
+	
+	ml_instance_id='2d66a4d8-b28f-47c3-a667-8d7409861f75'
+	
+	header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + iam_token, 'ML-Instance-ID': ml_instance_id}
 
-	header_online = {'Content-Type': 'application/json', 'Authorization': "Bearer " + mltoken}
-	scoring_href = 'https://ibm-watson-ml.mybluemix.net/v3/wml_instances/2d66a4d8-b28f-47c3-a667-8d7409861f75/published_models/03d74b90-b22e-4ca0-a278-aa063841d8ee/deployments/0b4e5b68-c9a0-4a20-8548-d0b63739a73d/online'
 	
-	payload_scoring = {
+	#scoring_href = 'https://us-south.ml.cloud.ibm.com/v3/wml_instances/55808dd2-bc65-446b-8c1a-ac08a4c1ab3b/deployments/b813db9e-0144-45dd-b858-10c2b9535bca/online'
+	scoring_href ='https://us-south.ml.cloud.ibm.com/v3/wml_instances/2d66a4d8-b28f-47c3-a667-8d7409861f75/deployments/0b4e5b68-c9a0-4a20-8548-d0b63739a73d/online'
+	
+	payload_scoring={
     "fields": [
-    "ID",
     "Gender",
     "Status",
     "Children",
     "EstIncome",
     "CarOwner",
     "Age",
-    "LongDistance",
-    "International",
-    "Local",
-    "Dropped",
+    "AvgMonthlySpend",
+    "CustomerSupportCalls",
     "Paymethod",
-    "LocalBilltype",
-    "LongDistanceBilltype",
-    "Usage",
-    "RatePlan"
+    "MembershipPlan"
     ],
-    "values": [ [ID,Gender,Status,Children,EstIncome,CarOwner,Age,LongDistance,International,Local,Dropped,Paymethod,LocalBilltype,LongDistanceBilltype,Usage,RatePlan] ]}
-	
-	response_scoring = requests.post(scoring_href, json=payload_scoring, headers=header_online)
+    "values": [ [Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan] ]} 
+
+
+	response_scoring = requests.post(scoring_href, json=payload_scoring, headers=header)
 	
 	result = response_scoring.text
+	print("Result:")
 	print(result)
 	return response_scoring
 
@@ -81,15 +85,10 @@ def index():
 		#EstIncome=5185.310000
 		#CarOwner='N'
 		#Age=62.053333
-		#LongDistance=16.390000
-		#International=5.990000
-		#Local=30.510000
-		#Dropped=0.000000
+		#AvgMonthlySpend=16.390000
+		#CustomerSupportCalls=0.000000
 		#Paymethod='CC'
-		#LocalBilltype='FreeLocal'
-		#LongDistanceBilltype='Intnl_discount'
-		#Usage=52.900000
-		#RatePlan=2.000000
+		#MembershipPlan=2.000000
 
 		Gender=request.form['Gender']
 		Status='S'
@@ -97,15 +96,10 @@ def index():
 		EstIncome=int(request.form['EstIncome'])
 		CarOwner=request.form['CarOwner']
 		Age=int(request.form['Age'])
-		LongDistance=int(request.form['LongDistance'])
-		International=int(request.form['International'])
-		Local=int(request.form['Local'])
-		Dropped=int(request.form['Dropped'])
+		AvgMonthlySpend=int(request.form['AvgMonthlySpend'])
+		CustomerSupportCalls=int(request.form['CustomerSupportCalls'])
 		Paymethod=request.form['Paymethod']
-		LocalBilltype='FreeLocal'
-		LongDistanceBilltype='Intnl_discount'
-		Usage=52.900000
-		RatePlan=int(request.form['RatePlan'])
+		MembershipPlan=int(request.form['MembershipPlan'])
 		
 		
 		
@@ -115,20 +109,16 @@ def index():
 		session[EstIncome] = EstIncome
 		session[CarOwner]=CarOwner
 		session[Age]=Age
-		session[LongDistance]=LongDistance
-		session[International]=International
-		session[Local]=Local
-		session[Dropped]=Dropped
+		session[AvgMonthlySpend]=AvgMonthlySpend
+		session[CustomerSupportCalls]=CustomerSupportCalls
 		session[Paymethod]=Paymethod
-		session[LocalBilltype]=LocalBilltype
-		session[LongDistanceBilltype]=LongDistanceBilltype
-		session[Usage]=Usage
-		session[RatePlan]=RatePlan
+		session[MembershipPlan]=MembershipPlan
 
 
 
-		response_scoring = predictDefault(ID,Gender,Status,Children,EstIncome,CarOwner,Age,LongDistance,International,Local,Dropped,Paymethod,LocalBilltype,LongDistanceBilltype,Usage,RatePlan)
-		prediction = response_scoring.json()["values"][0][27]
+		response_scoring = predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan)
+		print(response_scoring)
+		prediction=response_scoring.json()["values"][0][27]
 		probability= response_scoring.json()["values"][0][26][1]
 
 		session['prediction'] = prediction
