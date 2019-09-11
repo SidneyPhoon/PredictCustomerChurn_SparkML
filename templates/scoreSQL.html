@@ -2,16 +2,16 @@
 {% block body %}
 <br/>
 
-{% if response_scoring.json()["values"][0][27]==0.0 %}
+{% if response_scoring.json()["values"][0][20]==0.0 %}
     <h2>This customer is predicted Not to Churn!</h2>
     {% endif %}
                 
-{% if response_scoring.json()["values"][0][27]==1.0 %}
+{% if response_scoring.json()["values"][0][20]==1.0 %}
     <h2>This customer is predicted to Churn </h2>
 	
     {% endif %}
 	
-<p>Probability to Churn = {{ "{:.2f}".format(response_scoring.json()["values"][0][26][1]*100) }}%</p>
+<p>Probability to Churn = {{ "{:.2f}".format(response_scoring.json()["values"][0][19][1]*100) }}%</p>
 
 
 <br>
