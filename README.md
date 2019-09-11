@@ -13,5 +13,9 @@ An instance of the application running on IBM Bluemix can be accessed at https:/
 1. Select the **Deploy to Bluemix** button below to fork a copy of the project code and create the services.
 
   [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/SidneyPhoon/PredictCustomerChurn_SparkML.git)
+  
+  [![Deploy to Bluemix]](https://console.bluemix.net/devops/setup/deploy?repository=https://github.com/SidneyPhoon/PredictCustomerChurn_SparkML)
+  
+
 
 
