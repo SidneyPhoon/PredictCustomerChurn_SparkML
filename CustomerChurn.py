@@ -18,10 +18,10 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 
 app = Flask(__name__)
 
-#app.config.update(dict(
-#	DEBUG=True,
-#	SECRET_KEY='development key',
-#))
+app.config.update(dict(
+	DEBUG=True,
+	SECRET_KEY='development key',
+))
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://admin:XZLNWWMRNZHWXOCK@bluemix-sandbox-dal-9-portal.8.dblayer.com:26360/MortgageDefault'
 #postgres://admin:XZLNWWMRNZHWXOCK@bluemix-sandbox-dal-9-portal.8.dblayer.com:26360/mydb
@@ -48,7 +48,7 @@ def predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend
 
 	
 	#scoring_href = 'https://us-south.ml.cloud.ibm.com/v3/wml_instances/55808dd2-bc65-446b-8c1a-ac08a4c1ab3b/deployments/b813db9e-0144-45dd-b858-10c2b9535bca/online'
-	scoring_href ='https://us-south.ml.cloud.ibm.com/v3/wml_instances/2d66a4d8-b28f-47c3-a667-8d7409861f75/deployments/0b4e5b68-c9a0-4a20-8548-d0b63739a73d/online'
+	scoring_endpoint='https://us-south.ml.cloud.ibm.com/v3/wml_instances/2d66a4d8-b28f-47c3-a667-8d7409861f75/deployments/116be511-c167-472f-ad7a-720d52fd9680/online'
 	
 	payload_scoring={
     "fields": [
@@ -66,7 +66,7 @@ def predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend
     "values": [ [Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan] ]} 
 
 
-	response_scoring = requests.post(scoring_href, json=payload_scoring, headers=header)
+	response_scoring = requests.post(scoring_endpoint, json=payload_scoring, headers=header)
 	
 	result = response_scoring.text
 	print("Result:")
@@ -118,8 +118,8 @@ def index():
 
 		response_scoring = predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan)
 		print(response_scoring)
-		prediction=response_scoring.json()['values'][0][27]
-		probability= response_scoring.json()['values'][0][26][1]
+		prediction=response_scoring.json()['values'][0][20]
+		probability= response_scoring.json()['values'][0][19][1]
 
 		session['prediction'] = prediction
 		session['probability'] = probability
