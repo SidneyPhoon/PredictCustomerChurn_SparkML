@@ -28,19 +28,19 @@ function subtract_one_YearAge()
   show_value_Age(document.getElementById('Age').value);
 }
 
-function show_value_LongDistance(x)
+function show_value_AvgMonthlySpend(x)
 {
- document.getElementById("slider_value_LongDistance").innerHTML=x;
+ document.getElementById("slider_value_AvgMonthlySpend").innerHTML=x;
 }
-function add_one_LongDistance()
+function add_one_AvgMonthlySpend()
 {
-  document.getElementById('LongDistance').value=parseInt(document.getElementById('LongDistance').value)+1;
-  show_value_LongDistance(document.getElementById('LongDistance').value);
+  document.getElementById('AvgMonthlySpend').value=parseInt(document.getElementById('AvgMonthlySpend').value)+1;
+  show_value_AvgMonthlySpend(document.getElementById('AvgMonthlySpend').value);
 }
-function subtract_one_LongDistance()
+function subtract_one_AvgMonthlySpend()
 {
- document.getElementById('LongDistance').value=parseInt(document.getElementById('LongDistance').value)-1;
-  show_value_LongDistance(document.getElementById('LongDistance').value);
+ document.getElementById('AvgMonthlySpend').value=parseInt(document.getElementById('AvgMonthlySpend').value)-1;
+  show_value_AvgMonthlySpend(document.getElementById('AvgMonthlySpend').value);
 }
 
 function show_value_NumberOfChildren(x)
@@ -58,19 +58,19 @@ function subtract_one_NumberOfChildren()
   show_value_NumberOfChildren(document.getElementById('Children').value);
 }
 
-function show_value_Dropped(x)
+function show_value_CustomerSupportCalls(x)
 {
- document.getElementById("slider_value_Dropped").innerHTML='$'+x;
+ document.getElementById("slider_value_CustomerSupportCalls").innerHTML='$'+x;
 }
-function add_one_Dropped()
+function add_one_CustomerSupportCalls()
 {
-  document.getElementById('Dropped').value=parseInt(document.getElementById('Dropped').value)+1;
-  show_value_Dropped(document.getElementById('Dropped').value);
+  document.getElementById('CustomerSupportCalls').value=parseInt(document.getElementById('CustomerSupportCalls').value)+1;
+  show_value_CustomerSupportCalls(document.getElementById('CustomerSupportCalls').value);
 }
-function subtract_one_Dropped()
+function subtract_one_CustomerSupportCalls()
 {
- document.getElementById('Dropped').value=parseInt(document.getElementById('Dropped').value)-1;
-  show_value_Dropped(document.getElementById('Dropped').value);
+ document.getElementById('CustomerSupportCalls').value=parseInt(document.getElementById('CustomerSupportCalls').value)-1;
+  show_value_CustomerSupportCalls(document.getElementById('CustomerSupportCalls').value);
 }
 
 function show_value_LoanAmount(x)
@@ -103,35 +103,6 @@ function subtract_one_SalePrice()
   show_value_SalePrice(document.getElementById('SalePrice').value);
 }
 
-function show_value_International(x)
-{
- document.getElementById("slider_value_International").innerHTML=x;
-}
-function add_one_International()
-{
-  document.getElementById('International').value=parseInt(document.getElementById('International').value)+1;
-  show_value_International(document.getElementById('International').value);
-}
-function subtract_one_International()
-{
- document.getElementById('International').value=parseInt(document.getElementById('International').value)-1;
-  show_value_International(document.getElementById('International').value);
-}
 
-
-function show_value_Local(x)
-{
- document.getElementById("slider_value_Local").innerHTML=x;
-}
-function add_one_Local()
-{
-  document.getElementById('Local').value=parseInt(document.getElementById('Local').value)+1;
-  show_value_Local(document.getElementById('Local').value);
-}
-function subtract_one_Local()
-{
- document.getElementById('Local').value=parseInt(document.getElementById('Local').value)-1;
-  show_value_Local(document.getElementById('Local').value);
-}
 
 
