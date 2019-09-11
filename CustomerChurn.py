@@ -14,24 +14,24 @@
 import os, urllib3, requests, json
 from flask import Flask, request, session, g, redirect, url_for, abort, \
 	 render_template, flash
-from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 
-app.config.update(dict(
-	DEBUG=True,
-	SECRET_KEY='development key',
-))
+#app.config.update(dict(
+#	DEBUG=True,
+#	SECRET_KEY='development key',
+#))
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://admin:XZLNWWMRNZHWXOCK@bluemix-sandbox-dal-9-portal.8.dblayer.com:26360/MortgageDefault'
 #postgres://admin:XZLNWWMRNZHWXOCK@bluemix-sandbox-dal-9-portal.8.dblayer.com:26360/mydb
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 
 
 def predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan):
 	
 	
-	apikey = 'xxxxxx'
+	apikey = 'TcEqt9DTURtLg5_ZR3-lLUA2gyehNu8TNtLaJNdrWPij'
 	
 	# Get an IAM token from IBM Cloud
 	url     = "https://iam.bluemix.net/oidc/token"
@@ -42,7 +42,7 @@ def predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend
 	response  = requests.post( url, headers=headers, data=data, auth=( IBM_cloud_IAM_uid, IBM_cloud_IAM_pwd ) )
 	iam_token = response.json()["access_token"]
 	
-	ml_instance_id='xxxxx'
+	ml_instance_id='2d66a4d8-b28f-47c3-a667-8d7409861f75'
 	
 	header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + iam_token, 'ML-Instance-ID': ml_instance_id}
 
@@ -118,8 +118,8 @@ def index():
 
 		response_scoring = predictDefault(Gender,Status,Children,EstIncome,CarOwner,Age,AvgMonthlySpend,CustomerSupportCalls,Paymethod,MembershipPlan)
 		print(response_scoring)
-		prediction=response_scoring.json()["values"][0][27]
-		probability= response_scoring.json()["values"][0][26][1]
+		prediction=response_scoring.json()['values'][0][27]
+		probability= response_scoring.json()['values'][0][26][1]
 
 		session['prediction'] = prediction
 		session['probability'] = probability
