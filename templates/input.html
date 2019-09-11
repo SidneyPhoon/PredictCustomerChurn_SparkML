@@ -56,42 +56,27 @@
             {#<span id="slider_value_Income" style="color:blue;font-weight:bold;"></span><br><br>#}
         </dd><br>
 		
-        <dt>Long Distance Minutes:</dt>
+        <dt>Average Monthly Spend($)</dt>
         <dd>
-            <input type="button" value="-1" onClick="subtract_one_LongDistance()">
-            0 <input type="range" min="0" max="60" step="1" name="LongDistance" id="LongDistance" value="16" onchange="show_value_LongDistance(this.value)"> 60
-            <input type="button" value="+1" onClick="add_one_LongDistance()">
-            <span id="slider_value_LongDistance" style="color:blue;font-weight:bold;"></span><br>
+            <input type="button" value="-1" onClick="subtract_one_AvgMonthlySpend()">
+            0 <input type="range" min="0" max="300" step="1" name="AvgMonthlySpend" id="AvgMonthlySpend" value="10" onchange="show_value_AvgMonthlySpend(this.value)"> 300
+            <input type="button" value="+1" onClick="add_one_AvgMonthlySpend()">
+            <span id="slider_value_AvgMonthlySpend" style="color:blue;font-weight:bold;"></span><br>
         </dd><br>
         
-        <dt>International Minutes:</dt>
-        <dd>
-            <input type="button" value="-1" onClick="subtract_one_International()">
-            0 <input type="range" min="0" max="10" step="1" name="International" id="International" value="2" onchange="show_value_International(this.value)"> 10
-            <input type="button" value="+1" onClick="add_one_International()">
-            <span id="slider_value_International" style="color:blue;font-weight:bold;"></span><br>
-        </dd><br>
 		
-		<dt>Local Minutes:</dt>
+        <dt>Number of Customer Support Calls:</dt>
         <dd>
-            <input type="button" value="-1" onClick="subtract_one_Local()">
-            0 <input type="range" min="0" max="500" step="1" name="Local" id="Local" value="60" onchange="show_value_Local(this.value)"> 500
-            <input type="button" value="+1" onClick="add_one_Local()">
-            <span id="slider_value_Local" style="color:blue;font-weight:bold;"></span><br>
+            <input type="button" value="-1" onClick="subtract_one_CustomerSupportCalls()">
+            <input type="number" min="0" max="" step="" name="CustomerSupportCalls" id="CustomerSupportCalls" value="0" required onchange="show_value_CustomerSupportCalls(this.value)">
+            <input type="button" value="+1" onClick="add_one_CustomerSupportCalls()">
+            {#<span id="slider_value_CustomerSupportCalls" style="color:blue;font-weight:bold;"></span><br>#}
         </dd><br>
-		
-        <dt>Dropped Calls:</dt>
-        <dd>
-            <input type="button" value="-1" onClick="subtract_one_Dropped()">
-            <input type="number" min="0" max="" step="" name="Dropped" id="Dropped" value="0" required onchange="show_value_Dropped(this.value)">
-            <input type="button" value="+1" onClick="add_one_Dropped()">
-            {#<span id="slider_value_Dropped" style="color:blue;font-weight:bold;"></span><br>#}
-        </dd><br>
-        <dt>Rate Plan:</dt>
-        <dd><label><input type="radio" name="RatePlan" value="1" checked> 1</label>
-            <label><input type="radio" name="RatePlan" value="2"> 2</label>
-            <label><input type="radio" name="RatePlan" value="3"> 3</label>
-            <label><input type="radio" name="RatePlan" value="4"> 4</label>
+        <dt>MembershipPlan:</dt>
+        <dd><label><input type="radio" name="MembershipPlan" value="1" checked> Bronze</label>
+            <label><input type="radio" name="MembershipPlan" value="2"> Silver</label>
+            <label><input type="radio" name="MembershipPlan" value="3"> Platinuim</label>
+            <label><input type="radio" name="MembershipPlan" value="4"> Gold</label>
         </dd><br>
         <br>
         <dt><input type="submit" value="Submit"></dt>
