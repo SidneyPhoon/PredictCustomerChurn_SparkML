@@ -3,7 +3,7 @@ applications:
   memory: 128M
   instances: 1
   domain: mybluemix.net
-  name: PredictCustomerChurn-12345
-  host: PredictCustomerChurn-12345
+  name: PredictCustomerChurn-Generic
+  host: PredictCustomerChurn-Generic
   disk_quota: 1024M
   buildpack: python_buildpack
